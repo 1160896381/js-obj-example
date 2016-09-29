@@ -1,5 +1,10 @@
-function myConstructor(message) {
-    this.myMsaage = message;
+var myConstructor = function() {
+    
+    // 构造方法
+    function myConstructor(message) {
+        this.myMessage = message;
+    }
+    myConstructor.prototype.constructor = myConstructor;
 
     // 私有属性
     var separate = ' -';
@@ -7,26 +12,27 @@ function myConstructor(message) {
 
     // 私有方法
     function alertMessage() {
-        alert(myOwner.myMsaage);
+        alert(myOwner.myMessage);
     }
 
-    alertMessage();
-
-    // 特权方法(也是公有方法)
+    // 共有方法--------1
     this.appendToMessage = function(string) {
-        this.myMsaage += separate + string;　　　　
+        this.myMessage += separate + string;
         alertMessage();
     };
 
-    // 公有方法
+    // 共有方法--------2
     myConstructor.prototype.clearMessage = function() {
-        this.myMsaage = '';
+        this.myMessage = '';
     }
-    // 静态属性  
+
+    // 静态属性
     myConstructor.name = 'Jeff';
-    
+
     // 静态方法
     myConstructor.alertName = function() {
         alert(this.name);
     }
-}
+
+    return myConstructor;
+}();
