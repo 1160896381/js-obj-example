@@ -4,7 +4,6 @@ var myConstructor = function() {
     function myConstructor(message) {
         this.myMessage = message;
     }
-    myConstructor.prototype.constructor = myConstructor;
 
     // 私有属性
     var separate = ' -';
