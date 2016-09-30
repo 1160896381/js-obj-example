@@ -1,8 +1,9 @@
-var myConstructor = function() {
+var AAAPerson = function() {
     
     // 构造方法
-    function myConstructor(message) {
-        this.myMessage = message;
+    function Person(name, email) {
+        this.name = name;
+        this.email = email;
     }
 
     // 私有属性
@@ -11,7 +12,8 @@ var myConstructor = function() {
 
     // 私有方法
     function alertMessage() {
-        alert(myOwner.myMessage);
+        alert(myOwner.name);
+        alert(myOwner.email);
     }
 
     // 共有方法--------1
@@ -21,17 +23,28 @@ var myConstructor = function() {
     };
 
     // 共有方法--------2
-    myConstructor.prototype.clearMessage = function() {
+    Person.prototype.clearMessage = function() {
         this.myMessage = '';
     }
 
     // 静态属性
-    myConstructor.name = 'Jeff';
+    Person.name = 'Jeff';
 
     // 静态方法
-    myConstructor.alertName = function() {
+    Person.alertName = function() {
         alert(this.name);
     }
 
-    return myConstructor;
+    return Person;
 }();
+
+var BBBEmployee = function() {
+
+    // Employee继承自Person
+    function Employee(name, email, jobTitle) {
+        AAAPerson.call(this, name, email);
+        this.jobTitle = jobTitle;
+    }
+
+    Employee.prototype = Object.create(AAAPerson.prototype);
+}
