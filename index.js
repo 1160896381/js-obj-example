@@ -1,19 +1,33 @@
-var AAAPerson = function() {
+var EXAMPLE = EXAMPLE || {};
+
+/**
+ * 面向对象继承处理
+ */
+EXAMPLE.extend = function(Child, Parent) {　　　　
+    var p = Parent.prototype;　　　　
+    var c = Child.prototype;　　　　
+    for (var i in p) {　
+        c[i] = p[i];
+    }　　　　
+    c.uber = p;
+}
+
+EXAMPLE.Person = function() {
     
     // 构造方法
-    function Person(name, email) {
+    function constructor(name, email) {
         this.name = name;
         this.email = email;
     }
 
     // 私有属性
     var separate = ' -';
-    var myOwner = this;
+    var self = this;
 
     // 私有方法
     function alertMessage() {
-        alert(myOwner.name);
-        alert(myOwner.email);
+        alert(self.name);
+        alert(self.email);
     }
 
     // 共有方法--------1
@@ -23,28 +37,31 @@ var AAAPerson = function() {
     };
 
     // 共有方法--------2
-    Person.prototype.clearMessage = function() {
+    constructor.prototype.clearMessage = function() {
         this.myMessage = '';
+        alert(this.name)
     }
 
     // 静态属性
-    Person.name = 'Jeff';
+    constructor.name = 'Jeff';
 
     // 静态方法
-    Person.alertName = function() {
+    constructor.alertName = function() {
         alert(this.name);
     }
 
-    return Person;
+    return constructor;
 }();
 
-var BBBEmployee = function() {
+EXAMPLE.Employee = function() {
 
     // Employee继承自Person
-    function Employee(name, email, jobTitle) {
-        AAAPerson.call(this, name, email);
+    function constructor(name, email, jobTitle) {
+        Person.call(this, name, email);
         this.jobTitle = jobTitle;
     }
 
-    Employee.prototype = Object.create(AAAPerson.prototype);
-}
+    EXAMPLE.extend(constructor, EXAMPLE.Person);
+
+    return constructor;
+}();
